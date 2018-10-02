@@ -26,7 +26,7 @@ RUN     mkdir -p /home/ddk/public/images/dapps/logs
 RUN     mkdir -p /home/ddk/public/images/dapps/pids
 RUN     mkdir -p /home/ddk/public/images/dapps/public
 RUN     touch /home/ddk/LICENSE
-COPY    DDKCoin/package*.json /home/ddk/
+COPY    DDKOIN/package*.json /home/ddk/
 
 USER    root
 
@@ -39,7 +39,7 @@ RUN     npm install --global npm@latest && \
 USER    ddk
 
 RUN     npm install
-COPY    --chown=ddk DDKCoin /home/ddk
+COPY    --chown=ddk DDKOIN /home/ddk
 COPY    --chown=ddk docker-entrypoint.sh /home/ddk/docker-entrypoint.sh
 RUN     grunt -version && grunt release --force && grunt --force exec:folder && \
         cp -r /home/ddk/release/0.9.9a/* /home/ddk

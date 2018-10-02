@@ -28,7 +28,7 @@ while IFS=, read -r _ip _secret; do
 
     # INSTALL
     sh install.sh
-    # docker-compose build
+     docker-compose build
 
     # CLEANING
     rm -rf docker
@@ -36,7 +36,7 @@ while IFS=, read -r _ip _secret; do
     rm -rf install.sh
 
     # RUN
-    # docker-compose up -d
+     docker-compose up -d
 
     # DISCONNECT
     cd ..
