@@ -1,0 +1,100 @@
+version: "2"
+services:
+
+  ddk:
+    build:
+      context: ""
+      dockerfile: Dockerfile.CORE
+    container_name: ddknode-core
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.5
+
+    env_file:
+      - ddkcoin.env
+      - custom.env
+    ports:
+      - "7007:7007"
+      - "9229:9229"
+    restart: always
+
+  ddkui:
+    build:
+      context: ""
+      dockerfile: Dockerfile.UI
+    container_name: ddknode-ui
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.6
+
+    environment:
+      - PORT=7000
+    ports:
+      - "7000:7000"
+    restart: always
+
+  db:
+    build:
+      context: ""
+      dockerfile: Dockerfile.PGDB
+    container_name: ddknode-db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.4
+        
+    env_file:
+      - ddkdb.env
+    ports:
+      - "5432:5432"
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: ddknode-redis
+    volumes:
+      - redis-data:/data
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.3
+    ports:
+      - "6379:6379"
+    restart: always
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    container_name: ddknode-elasticsearch
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.2
+    restart: always
+
+
+networks:
+  ddk-testnet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
+
+
+volumes:
+  db-data:
+  ddk-logs:
+  redis-data:
+  es-data:
+    driver: local
