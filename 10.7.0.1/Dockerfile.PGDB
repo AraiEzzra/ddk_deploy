@@ -1,0 +1,4 @@
+FROM postgres:9.6-alpine
+ENV POSTGRES_USER lisk
+ENV POSTGRES_PASSWORD password
+ENV POSTGRES_DB ddk
