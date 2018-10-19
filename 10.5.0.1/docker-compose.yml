@@ -3,7 +3,7 @@ services:
 
   ddk:
     build:
-      context: ""
+      context: ../data
       dockerfile: Dockerfile.CORE
     container_name: ddknode-core
     networks:
@@ -20,7 +20,7 @@ services:
 
   ddkui:
     build:
-      context: ""
+      context: ../data
       dockerfile: Dockerfile.UI
     container_name: ddknode-ui
     networks:
@@ -35,7 +35,7 @@ services:
 
   db:
     build:
-      context: ""
+      context: ../data
       dockerfile: Dockerfile.PGDB
     container_name: ddknode-db
     volumes:
