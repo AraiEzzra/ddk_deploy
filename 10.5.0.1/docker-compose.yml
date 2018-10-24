@@ -46,8 +46,6 @@ services:
         
     env_file:
       - ddkdb.env
-    ports:
-      - "5432:5432"
     restart: always
 
   redis:
@@ -58,8 +56,6 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.3
-    ports:
-      - "6379:6379"
     restart: always
 
   elasticsearch:
@@ -74,6 +70,10 @@ services:
       - es-data:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
+      - http.cors.enabled=true
+      - http.cors.allow-origin=http://localhost:7000
+      - http.cors.allow-headers=Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+      - http.cors.allow-credentials=true
     ports:
       - 9200:9200
       - 9300:9300
