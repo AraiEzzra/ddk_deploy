@@ -12,7 +12,6 @@ services:
 
     env_file:
       - ddkcoin.env
-      - custom.env
     ports:
       - "7007:7007"
       - "9229:9229"
