@@ -1,5 +1,8 @@
 {
     "port": 7007,
+    "serverProtocol": "http",
+    "serverHost": "10.5.0.5",
+    "serverPort": 7007,
     "address": "10.5.0.5",
     "version": "0.9.9a",
     "minVersion": ">=0.9.0",
