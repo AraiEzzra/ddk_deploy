@@ -71,7 +71,7 @@ services:
     environment:
       - discovery.type=single-node
       - http.cors.enabled=true
-      - http.cors.allow-origin=http://localhost:7000
+      - http.cors.allow-origin=*
       - http.cors.allow-headers=Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
       - http.cors.allow-credentials=true
     ports:
