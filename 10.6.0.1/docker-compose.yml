@@ -64,6 +64,10 @@ services:
       - es-data:/usr/share/elasticsearch/data
     environment:
       - discovery.type=single-node
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-headers=Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+      - http.cors.allow-credentials=true
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.2
