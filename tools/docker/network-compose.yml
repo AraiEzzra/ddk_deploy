@@ -1,0 +1,15 @@
+version: "2"
+    
+services:
+  dummy:
+    image: hello-world
+    networks:
+      - ddk-testnet
+      
+networks:
+  ddk-testnet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.0.0.0/8
+         gateway: 10.0.0.1

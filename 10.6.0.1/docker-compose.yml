@@ -76,11 +76,8 @@ services:
 
 networks:
   ddk-testnet:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 10.6.0.0/16
-         gateway: 10.6.0.1
+    external:
+      name: docker_ddk-testnet
 
 
 volumes:

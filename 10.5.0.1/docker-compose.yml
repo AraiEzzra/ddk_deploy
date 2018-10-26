@@ -13,7 +13,7 @@ services:
     env_file:
       - ddkcoin.env
     ports:
-      - "7007:7007"
+      # - "7007:7007"
       - "9229:9229"
     restart: always
 
@@ -84,11 +84,8 @@ services:
 
 networks:
   ddk-testnet:
-    driver: bridge
-    ipam:
-     config:
-       - subnet: 10.5.0.0/16
-         gateway: 10.5.0.1
+    external:
+      name: docker_ddk-testnet
 
 
 volumes:

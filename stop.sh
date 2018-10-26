@@ -8,3 +8,4 @@ cd ../
 cd 10.7.0.1
 docker-compose down
 cd ../
+docker-compose -f ./tools/docker/network-compose.yml down
