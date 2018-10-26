@@ -39,7 +39,7 @@ services:
         ipv4_address: 10.6.0.4
         
     env_file:
-      - ddkdb.env
+      - ddkcoin.env
     restart: always
 
   redis:
