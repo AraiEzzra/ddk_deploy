@@ -1,20 +1,10 @@
-FROM    ubuntu:16.04
+FROM    node:8-alpine
 
-# basis for application
-RUN     apt-get update && apt-get dist-upgrade -y
-RUN     apt-get install -y python build-essential curl automake autoconf libtool wget git mc nano redis-tools net-tools 
-RUN     apt-get install -y postgresql python-psycopg2 libpq-dev apt-transport-https ca-certificates apt-utils
+RUN     apk add --no-cache python curl automake autoconf libtool git alpine-sdk
+RUN     apk add --no-cache postgresql-dev
 
-RUN     curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - &&\
-        echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list &&\
-        apt-get update && apt-get install -y  yarn && yarn --version
-
-RUN     curl -sL https://deb.nodesource.com/setup_8.x | bash - &&\
-        apt-get install -y nodejs
-
-# DDK Installation
-RUN     adduser ddk --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
-RUN     echo "ddk:password123" | chpasswd
+RUN     addgroup ddk -g 1100 && \
+        adduser -D -u 1100 ddk -G ddk
 
 WORKDIR /home/ddk
 
@@ -22,6 +12,7 @@ USER    ddk
 
 RUN     mkdir -p /home/ddk
 RUN     chmod -R 777 /home/ddk
+RUN     mkdir -p /home/ddk/logs
 RUN     mkdir -p /home/ddk/public/images/dapps/logs
 RUN     mkdir -p /home/ddk/public/images/dapps/pids
 RUN     mkdir -p /home/ddk/public/images/dapps/public
@@ -32,8 +23,6 @@ USER    root
 
 RUN     npm install --global npm@latest && \
         npm install --global node-gyp@latest && \
-        npm install --global bower@latest && \
-        npm install --global grunt-cli@latest && \
         npm install --global wait-port@latest
 
 USER    ddk
@@ -41,8 +30,6 @@ USER    ddk
 RUN     npm install
 COPY    --chown=ddk DDKOIN /home/ddk
 COPY    --chown=ddk docker-entrypoint.sh /home/ddk/docker-entrypoint.sh
-RUN     grunt -version && grunt release --force && grunt --force exec:folder && \
-        cp -r /home/ddk/release/0.9.9a/* /home/ddk
 
 USER    root
 
