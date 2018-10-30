@@ -1,7 +1,20 @@
+FROM    node:8-alpine AS builder
+
+RUN     apk add --no-cache python curl automake autoconf libtool git alpine-sdk postgresql-dev
+
+WORKDIR /home/ddk
+
+RUN     mkdir -p /home/ddk && chmod -R 777 /home/ddk
+COPY    DDKOIN/package*.json /home/ddk/
+
+RUN     npm install --global npm@latest && \
+        npm install --global node-gyp@latest
+
+RUN     npm install
+
 FROM    node:8-alpine
 
-RUN     apk add --no-cache python curl automake autoconf libtool git alpine-sdk
-RUN     apk add --no-cache postgresql-dev
+RUN     apk add --no-cache curl postgresql-dev
 
 RUN     addgroup ddk -g 1100 && \
         adduser -D -u 1100 ddk -G ddk
@@ -17,22 +30,14 @@ RUN     mkdir -p /home/ddk/public/images/dapps/logs
 RUN     mkdir -p /home/ddk/public/images/dapps/pids
 RUN     mkdir -p /home/ddk/public/images/dapps/public
 RUN     touch /home/ddk/LICENSE
-COPY    DDKOIN/package*.json /home/ddk/
 
-USER    root
-
-RUN     npm install --global npm@latest && \
-        npm install --global node-gyp@latest && \
-        npm install --global wait-port@latest
-
-USER    ddk
-
-RUN     npm install
 COPY    --chown=ddk DDKOIN /home/ddk
+COPY    --from=builder --chown=ddk /home/ddk /home/ddk
 COPY    --chown=ddk docker-entrypoint.sh /home/ddk/docker-entrypoint.sh
 
 USER    root
 
+RUN     npm install --global wait-port@latest
 RUN     chmod +x /home/ddk/docker-entrypoint.sh
 
 USER    ddk
