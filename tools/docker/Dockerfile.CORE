@@ -14,7 +14,7 @@ RUN     npm install
 
 FROM    node:8-alpine
 
-RUN     apk add --no-cache curl postgresql-dev
+RUN     apk add --no-cache curl bash
 
 RUN     addgroup ddk -g 1100 && \
         adduser -D -u 1100 ddk -G ddk
