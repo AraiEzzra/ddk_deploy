@@ -23,13 +23,13 @@ WORKDIR /home/ddk
 
 USER    ddk
 
-RUN     mkdir -p /home/ddk
-RUN     chmod -R 777 /home/ddk
-RUN     mkdir -p /home/ddk/logs
-RUN     mkdir -p /home/ddk/public/images/dapps/logs
-RUN     mkdir -p /home/ddk/public/images/dapps/pids
-RUN     mkdir -p /home/ddk/public/images/dapps/public
-RUN     touch /home/ddk/LICENSE
+RUN     mkdir -p /home/ddk && \
+        chmod -R 777 /home/ddk && \
+        mkdir -p /home/ddk/logs && \
+        mkdir -p /home/ddk/public/images/dapps/logs && \
+        mkdir -p /home/ddk/public/images/dapps/pids && \
+        mkdir -p /home/ddk/public/images/dapps/public && \
+        touch /home/ddk/LICENSE
 
 COPY    --chown=ddk DDKOIN /home/ddk
 COPY    --from=builder --chown=ddk /home/ddk /home/ddk
