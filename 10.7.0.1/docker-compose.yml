@@ -59,6 +59,7 @@ services:
     volumes:
       - es-data:/usr/share/elasticsearch/data
     environment:
+      - ES_JAVA_OPTS=$ES_JAVA_OPTS
       - discovery.type=single-node
       - http.cors.enabled=true
       - http.cors.allow-origin=*
