@@ -2,9 +2,7 @@ version: "2"
 services:
 
   ddk:
-    build:
-      context: ../data
-      dockerfile: Dockerfile.CORE
+    image: "${REGISTRY_URL}/ddk/core"
     container_name: ddknode-core-2
     networks:
       ddk-testnet:
@@ -15,9 +13,7 @@ services:
     restart: always
 
   ddkui:
-    build:
-      context: ../data
-      dockerfile: Dockerfile.UI
+    image: "${REGISTRY_URL}/ddk/ui"
     container_name: ddknode-ui-2
     networks:
       ddk-testnet:
