@@ -1,6 +1,8 @@
-FROM node:8.9.1
+FROM node:8-alpine
 
-RUN adduser ddk --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password
+RUN apk add --no-cache git
+
+RUN addgroup ddk -g 1100 && adduser -D -u 1100 ddk -G ddk
 
 RUN npm install --global grunt-cli@latest
 
