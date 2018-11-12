@@ -5,6 +5,7 @@ REVISION_ID=$1 && \
 cd data/DDKOIN && \
 [ -z "$1" ] || { git fetch --all --tags --prune && git checkout "${REVISION_ID}"; } && \
 cd ../../test && \
-docker-compose up -d --build db redis elasticsearch && \
-docker-compose up --build ddk && \
+docker-compose build --no-cache && \
+docker-compose up -d db redis elasticsearch && \
+docker-compose up ddk && \
 docker-compose down --volumes
