@@ -1,6 +1,6 @@
 # pass git tag or revision you want to build as first argument
 CURRENT_TAG=`cd data/DDKUI && git tag --points-at HEAD | head -1` && \
-export TAG_NAME=${1:-CURRENT_TAG} && \
+export TAG_NAME=${1:-$CURRENT_TAG} && \
 export REVISION_ID=$1 && \
 export DOCKER_TAG="ddkoin/ui:${TAG_NAME:-latest}" && \
 cd data/DDKUI && \
