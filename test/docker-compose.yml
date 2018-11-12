@@ -1,0 +1,82 @@
+version: "2"
+services:
+
+  ddk:
+    build:
+      context: ../data
+      dockerfile: Dockerfile.CORE
+    container_name: ddknode-core
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.5
+
+    env_file:
+      - ddkcoin.env
+    entrypoint: ""
+    command: "npm test"
+
+  db:
+    build:
+      context: ../data
+      dockerfile: Dockerfile.PGDB
+    container_name: ddknode-db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.4
+        
+    env_file:
+      - ddkcoin.env
+    restart: always
+
+  redis:
+    image: redis:alpine
+    container_name: ddknode-redis
+    volumes:
+      - redis-data:/data
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.3
+    restart: always
+
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
+    container_name: ddknode-elasticsearch
+
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    environment:
+      - discovery.type=single-node
+      - http.cors.enabled=true
+      - http.cors.allow-origin=*
+      - http.cors.allow-headers=Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
+      - http.cors.allow-credentials=true
+    ports:
+      - 9200:9200
+      - 9300:9300
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.2
+    restart: always
+
+
+networks:
+  ddk-testnet:
+    driver: bridge
+    ipam:
+     config:
+       - subnet: 10.5.0.0/16
+         gateway: 10.5.0.1
+
+
+volumes:
+  db-data:
+  ddk-logs:
+  redis-data:
+  es-data:
+    driver: local
