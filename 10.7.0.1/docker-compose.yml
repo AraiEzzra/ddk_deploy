@@ -2,9 +2,7 @@ version: "2"
 services:
 
   ddk:
-    build:
-      context: ../data
-      dockerfile: Dockerfile.CORE
+    image: ddk_core_build
     container_name: ddknode-core-2
     networks:
       ddk-testnet:
@@ -15,31 +13,29 @@ services:
     restart: always
 
   ddkui:
-    build:
-      context: ../data
-      dockerfile: Dockerfile.UI
+    image: ddk_ui_build
     container_name: ddknode-ui-2
     networks:
       ddk-testnet:
         ipv4_address: 10.7.0.6
 
-    environment:
-      - PORT=7000
+    env_file:
+      - ddkcoin.env
     restart: always
 
   db:
-    build:
-      context: ../data
-      dockerfile: Dockerfile.PGDB
+    image: postgres:9.6-alpine
     container_name: ddknode-db-2
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
       ddk-testnet:
         ipv4_address: 10.7.0.4
-        
-    env_file:
-      - ddkcoin.env
+
+    environment:
+      - POSTGRES_USER=lisk
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ddk
     restart: always
 
   redis:
