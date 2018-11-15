@@ -5,7 +5,7 @@ RUN     apk add --no-cache python curl automake autoconf libtool git alpine-sdk 
 WORKDIR /home/ddk
 
 RUN     mkdir -p /home/ddk && chmod -R 777 /home/ddk
-COPY    DDKOIN/package*.json /home/ddk/
+COPY    DDKCORE/package*.json /home/ddk/
 
 RUN     npm install --global npm@latest && \
         npm install --global node-gyp@latest
@@ -31,7 +31,7 @@ RUN     mkdir -p /home/ddk && \
         mkdir -p /home/ddk/public/images/dapps/public && \
         touch /home/ddk/LICENSE
 
-COPY    --chown=ddk DDKOIN /home/ddk
+COPY    --chown=ddk DDKCORE /home/ddk
 COPY    --from=builder --chown=ddk /home/ddk /home/ddk
 COPY    --chown=ddk docker-entrypoint.sh /home/ddk/docker-entrypoint.sh
 
