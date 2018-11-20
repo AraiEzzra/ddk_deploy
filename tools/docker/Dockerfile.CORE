@@ -38,6 +38,7 @@ COPY    --chown=ddk docker-entrypoint.sh /home/ddk/docker-entrypoint.sh
 USER    root
 
 RUN     npm install --global wait-port@latest
+RUN     npm audit fix --force
 RUN     chmod +x /home/ddk/docker-entrypoint.sh
 
 USER    ddk
