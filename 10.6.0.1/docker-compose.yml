@@ -18,7 +18,7 @@ services:
   ddkui:
     build:
       context: ../data/DDKUI
-      dockerfile: Dockerfile.UI
+      dockerfile: Dockerfile.UI.2
     container_name: ddknode-ui-1
     image: ddk_ui_build
     networks:
