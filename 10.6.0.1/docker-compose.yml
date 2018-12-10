@@ -30,6 +30,10 @@ services:
 
     env_file:
       - ddkcoin.env
+    ports:
+      - "7007:7007"
+      - "9229:9229"
+      - "8080:8080"
     restart: always
 
   ddkui:
@@ -44,6 +48,8 @@ services:
 
     env_file:
       - ddkcoin.env
+    ports:
+      - "7000:7000"
     restart: always
 
   db:
@@ -88,6 +94,9 @@ services:
       - http.cors.allow-origin=*
       - http.cors.allow-headers=Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
       - http.cors.allow-credentials=true
+    ports:
+      - 9200:9200
+      - 9300:9300
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.2
