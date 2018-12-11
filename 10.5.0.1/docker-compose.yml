@@ -26,7 +26,7 @@ services:
       - /home/ddk/logs
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.5
+        ipv4_address: 10.5.0.5
 
     env_file:
       - ddkcoin.env
@@ -40,11 +40,11 @@ services:
     build:
       context: ../data/DDKUI
       dockerfile: Dockerfile.UI.2
-    container_name: ddknode-ui-1
+    container_name: ddknode-ui
     image: ddk_ui_build
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.6
+        ipv4_address: 10.5.0.6
 
     env_file:
       - ddkcoin.env
@@ -54,12 +54,12 @@ services:
 
   db:
     image: postgres:9.6-alpine
-    container_name: ddknode-db-1
+    container_name: ddknode-db
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.4
+        ipv4_address: 10.5.0.4
 
     environment:
       - POSTGRES_USER=lisk
@@ -69,17 +69,17 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: ddknode-redis-1
+    container_name: ddknode-redis
     volumes:
       - redis-data:/data
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.3
+        ipv4_address: 10.5.0.3
     restart: always
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
-    container_name: ddknode-elasticsearch-1
+    container_name: ddknode-elasticsearch
 
     ulimits:
       memlock:
@@ -99,7 +99,7 @@ services:
       - 9300:9300
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.2
+        ipv4_address: 10.5.0.2
     restart: always
 
   nginx:
@@ -123,7 +123,7 @@ networks:
       name: docker_ddk-testnet
 
 volumes:
-  
+
   db-data:
   ddk-logs:
   redis-data:

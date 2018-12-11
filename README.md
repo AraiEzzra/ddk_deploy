@@ -11,6 +11,6 @@
 `sh volume-clean.sh`
 
 ## For easy executing command on node
-`docker exec -it ddknode-core-1 tail -f logs/2018-11-21.log` or 
+`docker exec -it ddknode-core tail -f logs/2018-11-21.log` or 
 `sh exec.sh 1 'tail -200 logs/2018-11-21.log'` or
 `sh exec.sh 2 'head -200 logs/2018-11-21.log'`
