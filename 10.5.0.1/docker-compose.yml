@@ -12,7 +12,6 @@ services:
       - ddkcoin.env
     ports:
       - "7007:7007"
-      - "9229:9229"
       - "8080:8080"
     restart: always
 
