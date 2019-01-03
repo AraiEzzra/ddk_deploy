@@ -76,6 +76,20 @@ services:
         ipv4_address: 10.6.0.2
     restart: always
 
+  nginx:
+    image: nginx
+    container_name: ddknode-nginx-1
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.6.0.7
+    volumes:
+      - ./ddk.conf:/etc/nginx/conf.d/ddk.conf
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=10.6.0.7
+      - NGINX_PORT=80
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/ddk.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
 
 networks:
   ddk-testnet:
@@ -83,6 +97,7 @@ networks:
       name: docker_ddk-testnet
 
 volumes:
+  
   db-data:
   ddk-logs:
   redis-data:
