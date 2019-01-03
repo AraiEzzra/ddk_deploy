@@ -75,14 +75,29 @@ services:
       ddk-testnet:
         ipv4_address: 10.6.0.2
     restart: always
+  
+  nginx:
+    image: nginx
+    container_name: ddknode-nginx-1
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.7
+    volumes:
+      - nginx-data:/etc/nginx/conf.d/ddk.template
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=10.5.0.7
+      - NGINX_PORT=80
 
-
+ 
 networks:
   ddk-testnet:
     external:
       name: docker_ddk-testnet
 
 volumes:
+  nginx-data:
   db-data:
   ddk-logs:
   redis-data:
