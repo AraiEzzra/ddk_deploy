@@ -7,7 +7,11 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.7.0.5
-
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
+    environment:
+      - MODE=PROD
     env_file:
       - ddkcoin.env
     restart: always

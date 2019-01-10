@@ -7,9 +7,11 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.5
-
     env_file:
       - ddkcoin.env
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
     ports:
       - "7007:7007"
       - "9229:9229"
@@ -22,7 +24,6 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.6
-
     env_file:
       - ddkcoin.env
     ports:
@@ -37,7 +38,7 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.4
-        
+
     environment:
       - POSTGRES_USER=lisk
       - POSTGRES_PASSWORD=password

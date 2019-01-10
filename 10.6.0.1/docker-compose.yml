@@ -1,16 +1,32 @@
 version: "2"
 services:
 
+  watch:
+    container_name: ddk-watch-server
+    image: ddk_core_build
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.6.0.7
+    env_file:
+      - ddkcoin.env
+    environment:
+      - MODE=WATCH
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
+
   ddk:
     build:
       context: ../data/DDKCORE
       dockerfile: Dockerfile.CORE
     image: ddk_core_build
     container_name: ddknode-core-1
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.5
-
     env_file:
       - ddkcoin.env
     restart: always
