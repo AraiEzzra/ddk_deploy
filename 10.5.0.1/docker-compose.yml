@@ -3,7 +3,7 @@ services:
 
   watch:
     image: ddk_core_build
-    container_name: ddk-watch-server
+    container_name: ddk-watch-server-single
     volumes:
       - ../data/DDKCORE:/home/ddk
       - /home/ddk/logs
@@ -20,7 +20,7 @@ services:
       context: ../data/DDKCORE
       dockerfile: Dockerfile.CORE
     image: ddk_core_build
-    container_name: ddknode-core-1
+    container_name: ddknode-core-single
     volumes:
       - ../data/DDKCORE:/home/ddk
       - /home/ddk/logs
@@ -40,7 +40,7 @@ services:
     build:
       context: ../data/DDKUI
       dockerfile: Dockerfile.UI.2
-    container_name: ddknode-ui
+    container_name: ddknode-ui-single
     image: ddk_ui_build
     networks:
       ddk-testnet:
@@ -54,7 +54,7 @@ services:
 
   db:
     image: postgres:9.6-alpine
-    container_name: ddknode-db
+    container_name: ddknode-db-single
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -69,7 +69,7 @@ services:
 
   redis:
     image: redis:alpine
-    container_name: ddknode-redis
+    container_name: ddknode-redis-single
     volumes:
       - redis-data:/data
     networks:
@@ -104,7 +104,7 @@ services:
 
   nginx:
     image: nginx
-    container_name: ddknode-nginx-1
+    container_name: ddknode-nginx-single
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.7
