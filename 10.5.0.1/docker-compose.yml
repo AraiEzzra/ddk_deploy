@@ -4,17 +4,16 @@ services:
   ddk:
     image: ddk_core_build
     container_name: ddknode-core
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.5
     env_file:
       - ddkcoin.env
-    volumes:
-      - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     ports:
       - "7007:7007"
-      - "9229:9229"
       - "8080:8080"
     restart: always
 
@@ -24,6 +23,7 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.6
+
     env_file:
       - ddkcoin.env
     ports:
@@ -80,6 +80,20 @@ services:
         ipv4_address: 10.5.0.2
     restart: always
 
+  nginx:
+    image: nginx
+    container_name: ddknode-nginx
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.7
+    volumes:
+      - ./ddk.conf:/etc/nginx/conf.d/ddk.conf
+    ports:
+      - "80:80"
+    environment:
+      - NGINX_HOST=10.5.0.7
+      - NGINX_PORT=80
+    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/ddk.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
 
 networks:
   ddk-testnet:
