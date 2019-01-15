@@ -76,7 +76,7 @@ services:
       ddk-testnet:
         ipv4_address: 10.5.0.7
     volumes:
-      - ../data/DDKUI/certs/:/etc/nginx/live/tdaddkthailand02.ddkoin.com/
+      - ./certs/:/etc/nginx/live/certs/
       - ./ddk.conf:/etc/nginx/nginx.conf
     ports:
       - "80:80"
