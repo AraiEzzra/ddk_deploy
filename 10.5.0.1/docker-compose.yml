@@ -77,12 +77,13 @@ services:
         ipv4_address: 10.5.0.7
     volumes:
       - ./certs/:/etc/nginx/live/certs/
-      - ./ddk.conf:/etc/nginx/nginx.conf
+      - ./nginx.template.conf:/etc/nginx/nginx.template
     ports:
       - "80:80"
       - "443:443"
     env_file:
       - ddkcoin.env
+    command: /bin/bash -c "envsubst < /etc/nginx/nginx.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
 
 networks:
   ddk-testnet:
