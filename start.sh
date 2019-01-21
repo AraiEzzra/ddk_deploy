@@ -10,4 +10,4 @@ cd 10.7.0.1
 docker-compose up -d --build
 cd ../
 cd 10.5.0.1
-docker-compose up --build && docker-compose stop ddktest
+docker-compose up --build
