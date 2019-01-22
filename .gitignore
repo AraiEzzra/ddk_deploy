@@ -2,3 +2,4 @@
 /192.*
 /data
 *.sql
+package-lock.json
