@@ -83,7 +83,7 @@ Open `docker-compose.yml` file and replace `ddkui` container settings with:
 
 ## Change DDKUI config.json
 
-Open `config.json` near `docker-compose.yml` file and change next parameters `serverProtocol`, `serverHost`, `elasticsearchHost`. Example below:
+Open `config.json` near `docker-compose.yml` file and change next parameters `serverProtocol`, `serverHost`, `elasticsearchHost`, `domainName`. Example below:
 
 Replace `yourDomain.com` value with your domain name.
 
@@ -91,6 +91,7 @@ Replace `yourDomain.com` value with your domain name.
 "serverProtocol": "https",
 "serverHost": "backend.yourDomain.com",
 "elasticsearchHost": "elasticsearch.yourDomain.com",
+"domainName": "yourDomain.com",
 ```
 
 And copy this file to DDKUI folder: `cp config.json ../data/DDKUI/config.json`
