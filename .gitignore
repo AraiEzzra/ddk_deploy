@@ -2,4 +2,4 @@
 /192.*
 /data
 *.sql
-certs/
+package-lock.json
