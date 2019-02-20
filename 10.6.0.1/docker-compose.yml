@@ -18,7 +18,7 @@ services:
   ddk:
     build:
       context: ../data/DDKCORE
-      dockerfile: Dockerfile.CORE
+      dockerfile: Dockerfile.CORE.NEW
     image: ddk_core_build
     container_name: ddknode-core-1
     volumes:
@@ -32,96 +32,20 @@ services:
       - ddkcoin.env
     restart: always
 
-  ddkui:
-    build:
-      context: ../data/DDKUI
-      dockerfile: Dockerfile.UI.2
-    container_name: ddknode-ui-1
-    image: ddk_ui_build
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.6.0.6
+  # db:
+  #   image: postgres:9.6-alpine
+  #   container_name: ddknode-db-1
+  #   volumes:
+  #     - db-data:/var/lib/postgresql/data
+  #   networks:
+  #     ddk-testnet:
+  #       ipv4_address: 10.6.0.4
 
-    env_file:
-      - ddkcoin.env
-    restart: always
-
-  db:
-    image: postgres:9.6-alpine
-    container_name: ddknode-db-1
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.6.0.4
-
-    environment:
-      - POSTGRES_USER=lisk
-      - POSTGRES_PASSWORD=password
-      - POSTGRES_DB=ddk
-    restart: always
-
-  redis:
-    image: redis:alpine
-    container_name: ddknode-redis-1
-    volumes:
-      - redis-data:/data
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.6.0.3
-    restart: always
-
-  elasticsearch:
-    image: docker.elastic.co/elasticsearch/elasticsearch:6.3.1
-    container_name: ddknode-elasticsearch-1
-
-    ulimits:
-      memlock:
-        soft: -1
-        hard: -1
-    volumes:
-      - es-data:/usr/share/elasticsearch/data
-    environment:
-      - ES_JAVA_OPTS=-Xms1g -Xmx1g
-      - discovery.type=single-node
-      - http.cors.enabled=true
-      - http.cors.allow-origin=*
-      - http.cors.allow-headers=Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With
-      - http.cors.allow-credentials=true
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.6.0.2
-    restart: always
-
-  nginx:
-    image: nginx
-    container_name: ddknode-nginx-1
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.6.0.7
-    volumes:
-      - ./ddk.conf:/etc/nginx/conf.d/ddk.conf
-    ports:
-      - "80:80"
-    environment:
-      - NGINX_HOST=10.6.0.7
-      - NGINX_PORT=80
-    command: /bin/bash -c "envsubst < /etc/nginx/conf.d/ddk.conf > /etc/nginx/conf.d/default.conf && exec nginx -g 'daemon off;'"
-
-  ddktest:
-    image: ddk_core_build
-    container_name: ddknode-core-test-1
-    volumes:
-      - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.6.0.9
-
-    env_file:
-      - ddkcoin.env
-    environment:
-      - MODE=TEST
+  #   environment:
+  #     - POSTGRES_USER=lisk
+  #     - POSTGRES_PASSWORD=password
+  #     - POSTGRES_DB=ddk
+  #   restart: always
 
 networks:
   ddk-testnet:
@@ -129,7 +53,6 @@ networks:
       name: docker_ddk-testnet
 
 volumes:
-  
   db-data:
   ddk-logs:
   redis-data:
