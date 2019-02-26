@@ -35,9 +35,5 @@ networks:
       name: docker_ddk-testnet
 
 
-volumes:
-  db-data:
-  ddk-logs:
-  redis-data:
-  es-data:
-    driver: local
+# volumes:
+#   db-data:
