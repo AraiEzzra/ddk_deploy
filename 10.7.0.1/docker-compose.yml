@@ -12,6 +12,8 @@ services:
       - /home/ddk/logs
     env_file:
       - ddkcoin.env
+    environment:
+    - SERVICE=CORE
     restart: always
 
   db:

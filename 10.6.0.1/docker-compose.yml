@@ -11,7 +11,7 @@ services:
       ddk-testnet:
         ipv4_address: 10.6.0.8
     env_file:
-     - ddkcoin.env
+      - ddkcoin.env
     environment:
       - MODE=WATCH
 
@@ -27,9 +27,10 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.5
-
     env_file:
       - ddkcoin.env
+    environment:
+      - SERVICE=CORE
     restart: always
 
   db:
