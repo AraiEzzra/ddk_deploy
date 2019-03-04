@@ -14,20 +14,20 @@ services:
       - ddkcoin.env
     restart: always
 
-  # db:
-  #   image: postgres:9.6-alpine
-  #   container_name: ddknode-db-2
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/data
-  #   networks:
-  #     ddk-testnet:
-  #       ipv4_address: 10.7.0.4
+  db:
+     image: postgres:9.6-alpine
+     container_name: ddknode-db-2
+     volumes:
+       - db-data:/var/lib/postgresql/data
+     networks:
+       ddk-testnet:
+         ipv4_address: 10.7.0.4
 
-  #   environment:
-  #     - POSTGRES_USER=lisk
-  #     - POSTGRES_PASSWORD=password
-  #     - POSTGRES_DB=ddk
-  #   restart: always
+     environment:
+       - POSTGRES_USER=lisk
+       - POSTGRES_PASSWORD=password
+       - POSTGRES_DB=ddk
+     restart: always
 
 networks:
   ddk-testnet:
@@ -35,5 +35,5 @@ networks:
       name: docker_ddk-testnet
 
 
-# volumes:
-#   db-data:
+volumes:
+  db-data:

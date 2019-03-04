@@ -18,7 +18,7 @@ services:
   ddk:
     build:
       context: ../data/DDKCORE
-      dockerfile: Dockerfile.CORE.NEW
+      dockerfile: dev.Dockerfile
     image: ddk_core_build
     container_name: ddknode-core-1
     volumes:
@@ -32,25 +32,24 @@ services:
       - ddkcoin.env
     restart: always
 
-  # db:
-  #   image: postgres:9.6-alpine
-  #   container_name: ddknode-db-1
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/data
-  #   networks:
-  #     ddk-testnet:
-  #       ipv4_address: 10.6.0.4
-
-  #   environment:
-  #     - POSTGRES_USER=lisk
-  #     - POSTGRES_PASSWORD=password
-  #     - POSTGRES_DB=ddk
-  #   restart: always
+  db:
+    image: postgres:9.6-alpine
+    container_name: ddknode-db-1
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.6.0.4
+    environment:
+      - POSTGRES_USER=lisk
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ddk
+    restart: always
 
 networks:
   ddk-testnet:
     external:
       name: docker_ddk-testnet
 
-# volumes:
-#   db-data:
+volumes:
+  db-data:
