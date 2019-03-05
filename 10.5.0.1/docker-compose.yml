@@ -1,6 +1,23 @@
 version: "2"
 services:
 
+  api:
+    image: ddk_core_build
+    container_name: ddknode-api
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.5.0.6
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+    ports:
+    - "7008:7008"
+    restart: always
+
   ddk:
     image: ddk_core_build
     container_name: ddknode-core
@@ -12,6 +29,8 @@ services:
         ipv4_address: 10.5.0.5
     env_file:
       - ddkcoin.env
+    environment:
+      - SERVICE=CORE
     ports:
       - "7007:7007"
       - "8080:8080"
