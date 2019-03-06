@@ -10,9 +10,29 @@ services:
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.5
-
     env_file:
       - ddkcoin.env
+    environment:
+      - SERVICE=CORE
+    ports:
+      - "7007:7007"
+      - "8080:8080"
+    restart: always
+
+  api:
+    depends_on:
+      - ddk
+    image: ddk_core_build
+    container_name: ddknode-api-1
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.6.0.5
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+    ports:
+      - "7008:7008"
     restart: always
 
   db:
