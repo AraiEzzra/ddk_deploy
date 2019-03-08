@@ -20,6 +20,8 @@ services:
   db:
     image: postgres:9.6-alpine
     container_name: ddknode-db
+    ports:
+      - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
