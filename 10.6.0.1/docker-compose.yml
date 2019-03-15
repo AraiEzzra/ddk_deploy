@@ -14,6 +14,9 @@ services:
       - ddkcoin.env
     environment:
       - SERVICE=CORE
+    ports:
+      - "7007:7007"
+      - "8080:8080"
     restart: always
 
   api:
