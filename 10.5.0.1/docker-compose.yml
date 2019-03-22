@@ -33,6 +33,7 @@ services:
       - SERVICE=CORE
     ports:
       - "7007:7007"
+      - "7009:7009"
       - "8080:8080"
     restart: always
 
