@@ -2,6 +2,9 @@ version: "2"
 services:
 
   ddk:
+    build:
+      context: ../data/DDKCORE
+      dockerfile: dev.Dockerfile
     image: ddk_core_build
     container_name: ddknode-tests
     networks:
