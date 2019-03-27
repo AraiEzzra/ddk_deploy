@@ -1,12 +1,34 @@
 version: "2"
 services:
 
+  api:
+    build:
+      context: ../data/DDKCORE
+      dockerfile: dev.Dockerfile
+    image: ddk_core_build
+    container_name: ddknode--tests-api
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.8.0.6
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+      - MODE=TEST
+    ports:
+      - "7008:7008"
+    restart: always
+
   ddk:
     build:
       context: ../data/DDKCORE
       dockerfile: dev.Dockerfile
     image: ddk_core_build
     container_name: ddknode-tests
+    command: tail -f /dev/null
     networks:
       ddk-testnet:
         ipv4_address: 10.8.0.5
