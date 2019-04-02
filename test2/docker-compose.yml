@@ -1,49 +1,60 @@
 version: "2"
 services:
 
-  api:
-    image: ddk_core_build
-    container_name: ddknode-api
-    volumes:
-      - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
-    networks:
-      ddk-testnet:
-        ipv4_address: 10.5.0.6
-    env_file:
-      - ddkcoin.env
-    environment:
-      - SERVICE=API
-    ports:
-    - "7008:7008"
-    restart: always
-
   ddk:
     image: ddk_core_build
-    container_name: ddknode-core
+    container_name: ddknode-core-test
     volumes:
       - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     networks:
       ddk-testnet:
-        ipv4_address: 10.5.0.5
+        ipv4_address: 10.9.0.5
     env_file:
       - ddkcoin.env
     environment:
       - SERVICE=CORE
     ports:
-      - "7007:7007"
-      - "7009:7009"
+      - "8009:8009"
+    restart: always
+
+  api:
+    image: ddk_core_build
+    container_name: ddknode-api-test
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.9.0.6
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+    ports:
+      - "8008:8008"
+    restart: always
+
+  test:
+    image: ddk_core_build
+    container_name: ddknode-test
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.9.0.7
+    env_file:
+      - ddkcoin.env
+    environment:
+      - MODE=TEST
     restart: always
 
   db:
      image: postgres:9.6-alpine
-     container_name: ddknode-db
+     container_name: ddknode-db-test
      volumes:
        - db-data:/var/lib/postgresql/data
      networks:
        ddk-testnet:
-         ipv4_address: 10.5.0.4
+         ipv4_address: 10.9.0.4
 
      environment:
        - POSTGRES_USER=lisk
