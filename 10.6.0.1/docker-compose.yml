@@ -30,8 +30,10 @@ services:
     env_file:
       - ddkcoin.env
     environment:
-      - SERVICE=CORE
-    restart: always
+#      - SERVICE=CORE
+      - SERVICE=MIGRATION
+#      - SERVICE=GENESIS
+#    restart: always
 
   db:
     image: postgres:9.6-alpine
