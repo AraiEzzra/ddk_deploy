@@ -2,7 +2,7 @@
 
 cd 10.6.0.1
 docker-compose build ddk
-cd ../test2
+cd ../test
 docker-compose up --build -d ddk api db
 docker-compose up test
 rm -rf log.log
