@@ -1,5 +1,5 @@
 /.idea
 /192.*
 /data
-*.sql
+# *.sql
 package-lock.json
