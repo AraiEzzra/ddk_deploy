@@ -13,7 +13,7 @@ services:
     env_file:
       - ddkcoin.env
     environment:
-      - MODE=WATCH
+      - SERVICE=WATCH
 
   ddk:
     build:
@@ -31,6 +31,7 @@ services:
       - ddkcoin.env
     environment:
       - SERVICE=CORE
+      - MODE=WATCH
       - PROFILING=false
     restart: always
 
