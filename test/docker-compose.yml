@@ -44,7 +44,7 @@ services:
     env_file:
       - ddkcoin.env
     environment:
-      - MODE=TEST
+      - SERVICE=TEST
     restart: always
 
   db:

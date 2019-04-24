@@ -14,6 +14,7 @@ services:
       - ddkcoin.env
     environment:
     - SERVICE=CORE
+    - MODE=WATCH
     - PROFILING=false
     restart: always
 
