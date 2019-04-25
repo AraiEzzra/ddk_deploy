@@ -4,3 +4,4 @@
 *.sql
 package-lock.json
 /test/log.log
+/test-prod/log.log
