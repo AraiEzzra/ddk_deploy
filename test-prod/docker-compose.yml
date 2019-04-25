@@ -1,0 +1,72 @@
+version: "2"
+services:
+
+  ddk:
+    image: ddk_core_prod_build
+    container_name: ddknode-prod-core-test
+    build:
+      context: ../data/DDKCORE
+      dockerfile: prod.Dockerfile
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.9.0.5
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=CORE
+    ports:
+      - "8009:8009"
+    restart: always
+
+  api:
+    depends_on:
+      - ddk
+    image: ddk_core_prod_build
+    container_name: ddknode-prod-api-test
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.9.0.6
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+    ports:
+      - "8008:8008"
+    restart: always
+
+  test:
+    depends_on:
+      - ddk
+    image: ddk_core_prod_build
+    container_name: ddknode-prod-test
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.9.0.7
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=TEST
+    restart: always
+
+  db:
+     image: postgres:9.6-alpine
+     container_name: ddknode-prod-db-test
+     volumes:
+       - db-data:/var/lib/postgresql/data
+     networks:
+       ddk-testnet:
+         ipv4_address: 10.9.0.4
+
+     environment:
+       - POSTGRES_USER=lisk
+       - POSTGRES_PASSWORD=password
+       - POSTGRES_DB=ddk
+     restart: always
+
+networks:
+  ddk-testnet:
+    external:
+      name: docker_ddk-testnet
+
+volumes:
+  db-data:
