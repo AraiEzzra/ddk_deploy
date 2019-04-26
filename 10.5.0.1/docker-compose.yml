@@ -35,7 +35,9 @@ services:
       - SERVICE=CORE
       - MODE=WATCH
       - PROFILING=false
+      - MODE=DEBUG
     ports:
+      - "9229:9229"
       - "7007:7007"
       - "7009:7009"
     restart: always
