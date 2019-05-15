@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-cd test
+cd integration
 docker-compose down --volumes
-cd ../10.6.0.1
+cd ../../10.6.0.1
 docker-compose build ddk
 cd ../test/integration
 rm -rf log.log

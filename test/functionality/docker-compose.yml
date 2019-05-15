@@ -3,7 +3,7 @@ services:
 
   test:
     image: ddk_core_build
-    container_name: ddknode-test
+    container_name: ddknode-test-functionality
     volumes:
       - ../../data/DDKCORE:/home/ddk
     networks:
