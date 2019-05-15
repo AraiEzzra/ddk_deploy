@@ -1,0 +1,39 @@
+version: "2"
+services:
+
+  test:
+    image: ddk_core_build
+    container_name: ddknode-test
+    volumes:
+      - ../../data/DDKCORE:/home/ddk
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.9.0.7
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=TEST_FUNCTIONALITY
+    restart: always
+
+  db:
+     image: postgres:9.6-alpine
+     container_name: ddknode-db-test
+     volumes:
+       - db-data:/var/lib/postgresql/data
+     networks:
+       ddk-testnet:
+         ipv4_address: 10.9.0.4
+
+     environment:
+       - POSTGRES_USER=lisk
+       - POSTGRES_PASSWORD=password
+       - POSTGRES_DB=ddk
+     restart: always
+
+networks:
+  ddk-testnet:
+    external:
+      name: docker_ddk-testnet
+
+volumes:
+  db-data:
