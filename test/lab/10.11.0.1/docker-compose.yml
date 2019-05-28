@@ -9,14 +9,12 @@ services:
       - /home/ddk/logs
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.5
+        ipv4_address: 10.11.0.5
     env_file:
       - ddkcoin.env
     environment:
-      - SERVICE=CORE
-      - MODE=WATCH
+      - SERVICE=TEST_LAB
       - PROFILING=false
-    restart: always
 
   db:
     image: postgres:9.6-alpine
@@ -25,7 +23,7 @@ services:
       - db-data:/var/lib/postgresql/data
     networks:
       ddk-testnet:
-        ipv4_address: 10.6.0.4
+        ipv4_address: 10.11.0.4
     environment:
       - POSTGRES_USER=lisk
       - POSTGRES_PASSWORD=password

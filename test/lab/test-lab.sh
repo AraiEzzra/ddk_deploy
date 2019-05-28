@@ -13,4 +13,8 @@ cd 10.11.0.1
 docker-compose up -d --build
 cd ../
 cd test-runner
-docker-compose up --build
+docker-compose up -d db
+docker-compose up ddk
+
+cd ../
+sh test-clean.sh

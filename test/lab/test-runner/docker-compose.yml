@@ -13,10 +13,8 @@ services:
     env_file:
       - ddkcoin.env
     environment:
-      - SERVICE=CORE
-      - MODE=WATCH
+      - SERVICE=TEST_LAB
       - PROFILING=false
-    restart: always
 
   db:
      image: postgres:9.6-alpine
