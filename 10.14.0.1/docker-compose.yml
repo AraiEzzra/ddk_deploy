@@ -1,0 +1,61 @@
+
+version: "2"
+services:
+
+  api:
+    image: ddk_core_build
+    container_name: ddknode-api-14
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.14.0.6
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+      - MODE=WATCH
+      - PROFILING=false
+    restart: always
+
+  ddk:
+    image: ddk_core_build
+    container_name: ddknode-core-14
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+      - /home/ddk/logs
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.14.0.5
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=CORE
+      - MODE=WATCH
+      - PROFILING=false
+    restart: always
+
+  db:
+     image: postgres:9.6-alpine
+     container_name: ddknode-db-14
+     volumes:
+       - db-data:/var/lib/postgresql/data
+     networks:
+       ddk-testnet:
+         ipv4_address: 10.14.0.4
+
+     environment:
+       - POSTGRES_USER=lisk
+       - POSTGRES_PASSWORD=password
+       - POSTGRES_DB=ddk
+     restart: always
+
+networks:
+  ddk-testnet:
+    external:
+      name: docker_ddk-testnet
+
+volumes:
+  db-data:
+    
