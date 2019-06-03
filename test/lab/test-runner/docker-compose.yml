@@ -3,7 +3,7 @@ services:
 
   ddk:
     image: ddk_core_build
-    container_name: ddknode-core-test3
+    container_name: ddknode-core-test-runner
     networks:
       ddk-testnet:
         ipv4_address: 10.12.0.5
