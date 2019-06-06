@@ -6,7 +6,6 @@ services:
     container_name: ddk-watch-server
     volumes:
       - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.8
@@ -23,7 +22,6 @@ services:
     container_name: ddknode-core-1
     volumes:
       - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.5
