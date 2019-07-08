@@ -6,7 +6,6 @@ services:
     container_name: ddknode-api
     volumes:
       - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.5.0.6

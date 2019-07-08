@@ -6,7 +6,6 @@ services:
     container_name: ddk-watch-server
     volumes:
       - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.8
@@ -14,6 +13,22 @@ services:
       - ddkcoin.env
     environment:
       - SERVICE=WATCH
+
+  api:
+    image: ddk_core_build
+    container_name: ddknode-api-1
+    volumes:
+      - ../data/DDKCORE:/home/ddk
+    networks:
+      ddk-testnet:
+        ipv4_address: 10.6.0.6
+    env_file:
+      - ddkcoin.env
+    environment:
+      - SERVICE=API
+      - MODE=WATCH
+      - PROFILING=false
+    restart: always
 
   ddk:
     build:
@@ -23,7 +38,6 @@ services:
     container_name: ddknode-core-1
     volumes:
       - ../data/DDKCORE:/home/ddk
-      - /home/ddk/logs
     networks:
       ddk-testnet:
         ipv4_address: 10.6.0.5
