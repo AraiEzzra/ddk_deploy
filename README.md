@@ -1,5 +1,6 @@
 ## How to install
 `sh install.sh`
+After watching successful finished stop container "Ctrl + C"
 
 ## How to run
 `sh start.sh`

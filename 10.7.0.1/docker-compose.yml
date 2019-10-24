@@ -6,6 +6,7 @@ services:
     container_name: ddknode-api-2
     volumes:
       - ../data/DDKCORE:/home/ddk
+      - ../data/DDK.REGISTRY:/home/DDK.REGISTRY
     networks:
       ddk-testnet:
         ipv4_address: 10.7.0.6
@@ -25,6 +26,7 @@ services:
         ipv4_address: 10.7.0.5
     volumes:
       - ../data/DDKCORE:/home/ddk
+      - ../data/DDK.REGISTRY:/home/DDK.REGISTRY
     env_file:
       - ddkcoin.env
     environment:
