@@ -6,6 +6,7 @@ services:
     container_name: ddknode-core-test
     volumes:
       - ../data/DDKCORE:/home/ddk
+      - ../data/DDK.REGISTRY:/home/DDK.REGISTRY
     networks:
       ddk-testnet:
         ipv4_address: 10.9.0.5
@@ -22,6 +23,7 @@ services:
     container_name: ddknode-api-test
     volumes:
       - ../data/DDKCORE:/home/ddk
+      - ../data/DDK.REGISTRY:/home/DDK.REGISTRY
     networks:
       ddk-testnet:
         ipv4_address: 10.9.0.6
@@ -38,6 +40,7 @@ services:
     container_name: ddknode-test
     volumes:
       - ../data/DDKCORE:/home/ddk
+      - ../data/DDK.REGISTRY:/home/DDK.REGISTRY
     networks:
       ddk-testnet:
         ipv4_address: 10.9.0.7
